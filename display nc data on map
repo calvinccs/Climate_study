@@ -1,0 +1,40 @@
+# example on using ipython notebook to display nc data on a map
+
+from mpl_toolkits.basemap import Basemap
+import numpy as np
+from netCDF4 import Dataset
+import matplotlib.pyplot as plt
+
+SLP = Dataset('slp.mon.mean.nc', 'r', format='NETCDF4')
+slp = SLP.variables['slp']
+lat = SLP.variables['lat']
+lon = SLP.variables['lon']
+time = SLP.variables['time']
+print(slp)
+print(lat)
+
+from mpl_toolkits.basemap import Basemap
+import matplotlib.pyplot as plt
+# setup Lambert Conformal basemap.
+m = Basemap(width=12000000,height=9000000,projection='lcc',
+            resolution='c',lat_1=-30,lat_2=40,lat_0=30,lon_0=120)
+# draw coastlines.
+m.drawcoastlines()
+# draw a boundary around the map, fill the background.
+# this background will end up being the ocean color, since
+# the continents will be drawn on top.
+m.drawmapboundary(fill_color='white')
+# fill continents, set lake color same as ocean color.
+m.fillcontinents(color='grey',lake_color='white')
+plt.show()
+
+m = Basemap(llcrnrlon=0,llcrnrlat=-80,urcrnrlon=360,urcrnrlat=80,projection='mill')
+
+fig=plt.figure(figsize=(10,10))
+LON, LAT = np.meshgrid(lon, lat)
+x, y = m(LON, LAT)
+CS = m.contour(x, y, slp[1,:,:],50)
+m.drawcoastlines()
+
+plt.show()
+#print(SLP[1,:,:])
