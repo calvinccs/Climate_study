@@ -1,0 +1,32 @@
+from netCDF4 import Dataset
+import numpy as np
+import matplotlib.pyplot as plt
+
+% matplotlib inline
+
+dmi = Dataset('dmi.nc','r', format='NETCDF4')
+dmidata = np.array(dmi.variables['DMI'])
+data = np.genfromtxt('refday.csv', delimiter=',')
+
+# find 
+x = data[np.logical_and(data[:,0] == 1984,data[:,1] == 11)]
+
+mths = []
+for y in range(1982,2016):
+    for m in range(1,13):
+        months = data[np.logical_and(data[:,0] == y,data[:,1] == m),3]
+        months.astype(int)
+        mths.append(months)
+        #mths.append(data[np.logical_and(data[:,0] == y,data[:,1] == m),3])
+print(mths[1:10])
+
+# calculate monthly mean and plot data
+
+monlthlymean = []
+for m in range(0,100):
+    index = list(mths[m])
+    mmean = np.mean(dmidata[index])
+    monlthlymean.append(mmean)
+print(monlthlymean)
+type(monlthlymean)
+plt.plot(monlthlymean)
