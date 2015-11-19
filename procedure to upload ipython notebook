@@ -1,0 +1,24 @@
+Procedure to upload ipython notebook into github:
+
+    Open a github account and remember your username
+    Create a public project in your accounts and remember the project_name
+    git clone the project to a local directory
+    cd to the same directory
+    ipython notebook
+    Develop and test your notebook, remembering to save before exit
+    git add the name of your notebook
+    git commit -m"Description of your change " to remember what the change was
+    git push
+    Go to http://nbviewer.ipython.org/ and enter username/project_name
+    Repeat steps 5..10 as necessary
+
+Of course if you are just trying to convert your local or saved notebook to a webpage then just:
+
+ipython nbconvert nbname.ipynb
+
+On your command line. 
+
+log in to github account
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
