@@ -1,5 +1,3 @@
-# testing1
-My first repository on GitHub (for testing)
-testing on how github work!
+# Python code related to climate data analysis
 
-This will store code from ipython notebook 
+To store code for climate data analysis using ipython notebook 
